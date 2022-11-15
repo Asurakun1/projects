@@ -1,10 +1,44 @@
 function rot13(str) {
-    let c = str.charCodeAt(0) + 13;
+    let lastElement = "";
+    let decrypt = "";
+    const key = {
+        1: "A", 2: "B", 3: "C", 4: "D", 5: "E", 6: "F",
+        7: "G", 8: "H", 9: "I", 10: "J", 11: "K", 12: "L",
+        13: "M", 14: "N", 15: "O", 16: "P", 17: "Q", 18: "R",
+        19: "S", 20: "T", 21: "U", 22: "V", 23: "W", 24: "X",
+        25: "Y", 26: "Z"
+    };
+    switch(str.charAt(str.length - 1)){
+        case '.':
+        case '!':
+        case '?':
+            lastElement = str.charAt(str.length - 1);
+            break;
+    }
+    
+    for(let i = 0; i < str.length; i++){
 
-    console.log(String.fromCharCode(c));
-    return c;
+        if(str.charAt(i) == ' '){
+            decrypt += " ";
+        }
+
+        for(let x = 1; x <= Object.keys(key).length; x++){
+            if(str.charAt(i) == key[x]){
+                let data = x + 13;  //shift 13
+                if(data > 26){
+                    data = data - 26;
+                    decrypt += key[data];
+                }else{
+                    decrypt += key[data];
+                }
+
+            }
+        }
+    }
+
+    return decrypt + lastElement;
   }
   
-rot13("SERR PBQR PNZC");
+console.log(rot13("SERR PBQR PNZC!"));
 
 //expected output: FREE CODE CAMP
